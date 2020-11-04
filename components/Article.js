@@ -3,6 +3,27 @@
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
 const data = [
   {
+    title: 'Luke P. knows what he\'s doing!',
+    date: 'Nov 3, 2020',
+    firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
+        moff wicket tatooine luke.Solo wampa wampa calrissian yoda moff.Darth grievous darth gonk darth hutt.Darth baba skywalker
+        watto fett jango maul han.Mon ewok sidious sidious lando kenobi grievous gamorrean solo.Yoda wedge utapau darth calamari.
+        Hutt calamari darth jabba.Darth dooku amidala organa moff.Boba darth binks solo hutt skywalker dantooine skywalker.Qui - gonn
+        jar twi'lek jinn leia jango skywalker mon.`,
+
+    secondParagraph: `Grievous fett calamari anakin skywalker hutt.Alderaan darth kenobi darth r2- d2
+        windu mothma.Sidious darth calamari moff.Wampa mothma sith wedge solo mara.Darth gonk maul sith moff chewbacca palpatine
+        mace amidala.C - 3po solo skywalker anakin yoda leia.Maul wampa bespin watto jade ewok darth jabba.Lando dantooine moff
+        k - 3po dantooine luke.Fisto mandalore darth wedge c - 3p0 ahsoka.Secura moff palpatine fett.Anakin sith darth darth.Moff
+        solo leia ben ponda jade.Binks jango aayla skywalker skywalker cade.Mustafar darth ventress anakin watto.Yavin jawa sebulba
+        owen jinn tatooine sith organa.`,
+
+    thirdParagraph: `Dagobah hutt jawa leia calamari ventress skywalker yoda. Binks wicket hutt coruscant sidious
+        naboo ackbar tatooine. Hutt lars padmé darth. Maul solo darth darth jabba qui-gon chewbacca darth maul. Moff baba wicket
+        han. C-3po antilles moff qui-gon ahsoka aayla dooku amidala. Palpatine droid amidala droid k-3po twi'lek padmé wookiee. Leia
+        moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`
+  },
+  {
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
     firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
@@ -102,7 +123,7 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
-
+  
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +135,53 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+function articleMaker(obj) {
+	//create a div with class of 'article' to hold all elements
+	const div = document.createElement('div');
+	div.classList.add('article');
+	
+	//create h2 element with text content of the title value of argument
+	const h2 = document.createElement('h2');
+	h2.textContent = obj.title;
+	
+	//create p element with 'date' class and text content of the date value of arg
+	const dateP = document.createElement('p');
+	dateP.classList.add('date');
+	dateP.textContent = obj.date;
+	
+	//create p element with the value of firstParagraph passed in
+	const pOne = document.createElement('p');
+	pOne.textContent = obj.firstParagraph;
+
+	//create p element with the value of secondParagraph passed in
+	const pTwo = document.createElement('p');
+	pTwo.textContent = obj.secondParagraph;
+
+	//create p element with the value of thirdParagraph passed in
+	const pThree = document.createElement('p');
+	pThree.textContent = obj.thirdParagraph;
+	
+	//create span element with 'expandButton' class and event listener for click that toggles 'article-open' class
+	const span = document.createElement('span');
+	span.classList.add('expandButton');
+	span.textContent = '+'
+	span.addEventListener('click', (e) => e.target.classList.toggle('article-open'));
+	
+	//append all elements in order to div
+	div.appendChild(h2);
+	div.appendChild(dateP);
+	div.appendChild(pOne);
+	div.appendChild(pTwo);
+	div.appendChild(pThree);
+	div.appendChild(span);
+	
+	return div;
+}
+
+//select the div that will hold the articles
+const articlesContainer = document.querySelector('div.articles')
+
+//map over dataset to create a new set of elements for each index
+data.map((a) => articlesContainer.appendChild(articleMaker(a)));
+
